@@ -1,6 +1,9 @@
+/* eslint-disable indent */
 const client = require('../lib/client');
 // import our seed data:
-const animals = require('./animals.js');
+const myGarden = require('./my_garden.js');
+const wishlist = require('./wishlist.js');
+const notes = require('./notes.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -14,34 +17,54 @@ async function run() {
     const users = await Promise.all(
       usersData.map(user => {
         return client.query(`
-                      INSERT INTO users (email, hash)
-                      VALUES ($1, $2)
+                      INSERT INTO users (email, name, hash)
+                      VALUES ($1, $2, $3)
                       RETURNING *;
                   `,
-        [user.email, user.hash]);
+          [user.email, user.name, user.hash]);
       })
     );
-      
+
     const user = users[0].rows[0];
 
     await Promise.all(
-      animals.map(animal => {
+      myGarden.map(item => {
         return client.query(`
-                    INSERT INTO animals (name, cool_factor, owner_id)
+                    INSERT INTO my_garden (plant_id, plant_name, owner_id)
                     VALUES ($1, $2, $3);
                 `,
-        [animal.name, animal.cool_factor, user.id]);
+          [item.plant_id, item.plant_name, user.id]);
       })
     );
-    
+
+    await Promise.all(
+      wishlist.map(item => {
+        return client.query(`
+                    INSERT INTO wishlist (plant_id, owner_id)
+                    VALUES ($1, $2);
+                `,
+          [item.plant_id, user.id]);
+      })
+    );
+
+    await Promise.all(
+      notes.map(item => {
+        return client.query(`
+                    INSERT INTO notes (plant_id, owner_id, date, note)
+                    VALUES ($1, $2, $3, $4);
+                `,
+          [item.plant_id, user.id, item.date, item.note]);
+      })
+    );
+
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
   }
   finally {
     client.end();
   }
-    
+
 }
