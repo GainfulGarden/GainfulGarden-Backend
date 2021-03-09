@@ -30,30 +30,30 @@ async function run() {
     await Promise.all(
       myGarden.map(item => {
         return client.query(`
-                    INSERT INTO my_garden (plant_id, plant_name, owner_id)
+                    INSERT INTO my_garden (main_species_id, plant_name, owner_id)
                     VALUES ($1, $2, $3);
                 `,
-          [item.plant_id, item.plant_name, user.id]);
+          [item.main_species_id, item.plant_name, user.id]);
       })
     );
 
     await Promise.all(
       wishlist.map(item => {
         return client.query(`
-                    INSERT INTO wishlist (plant_id, owner_id)
+                    INSERT INTO wishlist (main_species_id, owner_id)
                     VALUES ($1, $2);
                 `,
-          [item.plant_id, user.id]);
+          [item.main_species_id, user.id]);
       })
     );
 
     await Promise.all(
       notes.map(item => {
         return client.query(`
-                    INSERT INTO notes (plant_id, owner_id, date, note)
+                    INSERT INTO notes (main_species_id, owner_id, date, note)
                     VALUES ($1, $2, $3, $4);
                 `,
-          [item.plant_id, user.id, item.date, item.note]);
+          [item.main_species_id, user.id, item.date, item.note]);
       })
     );
 

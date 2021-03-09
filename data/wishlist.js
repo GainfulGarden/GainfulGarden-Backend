@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 module.exports = [
     {
-        plant_id: 12345,
+        main_species_id: 12345,
     },
     {
-        plant_id: 23456,
+        main_species_id: 23456,
     },
 ];
