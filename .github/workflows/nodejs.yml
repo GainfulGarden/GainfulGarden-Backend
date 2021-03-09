@@ -22,3 +22,4 @@ jobs:
       env:
         CI: true
         DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+        TREFLE_TOKEN: ${{ secrets.TREFLE_TOKEN }}
