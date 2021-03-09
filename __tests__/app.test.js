@@ -392,10 +392,10 @@ describe('app routes', () => {
 
       const response = await fakeRequest(app)
         .get('/api/notes/122263')
-        .set('Authorization', token);
-      // .expect('Content-Type', /json/);
-      // .expect(200);
-      expect(response).toEqual(plant);
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(response.body).toEqual(plant);
     });
 
     // DELETE an item from my_garden
