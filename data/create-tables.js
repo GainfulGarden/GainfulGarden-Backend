@@ -20,18 +20,18 @@ async function run() {
             );           
             CREATE TABLE my_garden (
                 id SERIAL PRIMARY KEY NOT NULL,
-                plant_id INTEGER NOT NULL,
+                main_species_id INTEGER NOT NULL,
                 plant_name VARCHAR(512) NOT NULL,
                 owner_id INTEGER NOT NULL REFERENCES users(id)
             );
             CREATE TABLE wishlist (
               id SERIAL PRIMARY KEY NOT NULL,
-              plant_id INTEGER NOT NULL,
+              main_species_id INTEGER NOT NULL,
               owner_id INTEGER NOT NULL REFERENCES users(id)
       );
       CREATE TABLE notes (
         id SERIAL PRIMARY KEY NOT NULL,
-        plant_id INTEGER NOT NULL,
+        main_species_id INTEGER NOT NULL,
         date VARCHAR(512) NOT NULL,
         note VARCHAR(512) NOT NULL,
         owner_id INTEGER NOT NULL REFERENCES users(id)
