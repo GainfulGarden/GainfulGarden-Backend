@@ -1,5 +1,7 @@
 # GainfulGarden
 
+**As of May 3, the Trefle API no longer is functional
+
 ## Team members
 
     - Kat Sauma
